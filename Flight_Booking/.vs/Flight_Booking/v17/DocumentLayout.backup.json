@@ -1,0 +1,119 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\models\\flightbookingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:models\\flightbookingcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\models\\airlinedetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:models\\airlinedetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\controllers\\airlinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:controllers\\airlinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\models\\citydetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:models\\citydetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|d:\\sem 5\\adv .net\\self project\\flight_booking\\models\\bookingdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDEF581C-EEF5-4105-B881-30612CE59192}|Flight_Booking.csproj|solutionrelative:models\\bookingdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AirlineDetail.cs",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\AirlineDetail.cs",
+              "RelativeDocumentMoniker": "Models\\AirlineDetail.cs",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\AirlineDetail.cs",
+              "RelativeToolTip": "Models\\AirlineDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T11:43:49.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AirlineController.cs",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Controllers\\AirlineController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AirlineController.cs",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Controllers\\AirlineController.cs",
+              "RelativeToolTip": "Controllers\\AirlineController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T11:43:43.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CityDetail.cs",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\CityDetail.cs",
+              "RelativeDocumentMoniker": "Models\\CityDetail.cs",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\CityDetail.cs",
+              "RelativeToolTip": "Models\\CityDetail.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBAAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T03:53:52.528Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BookingDetail.cs",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\BookingDetail.cs",
+              "RelativeDocumentMoniker": "Models\\BookingDetail.cs",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\BookingDetail.cs",
+              "RelativeToolTip": "Models\\BookingDetail.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T03:36:07.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FlightBookingContext.cs",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\FlightBookingContext.cs",
+              "RelativeDocumentMoniker": "Models\\FlightBookingContext.cs",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Models\\FlightBookingContext.cs",
+              "RelativeToolTip": "Models\\FlightBookingContext.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAYwGcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T16:56:57.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-28T16:29:15.975Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
