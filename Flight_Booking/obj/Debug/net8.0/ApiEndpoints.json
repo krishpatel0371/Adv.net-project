@@ -158,6 +158,164 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "GetBooking",
+    "RelativePath": "api/Booking",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "InsertBooking",
+    "RelativePath": "api/Booking",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Booking",
+        "Type": "Flight_Booking.Models.BookingDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "GetBookingById",
+    "RelativePath": "api/Booking/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "DeleteBookingById",
+    "RelativePath": "api/Booking/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "UpdateBooking",
+    "RelativePath": "api/Booking/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedBooking",
+        "Type": "Flight_Booking.Models.BookingDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "GetBookingStatus",
+    "RelativePath": "api/BookingStatus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "InsertBookingStatus",
+    "RelativePath": "api/BookingStatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BookingStatus",
+        "Type": "Flight_Booking.Models.BookingStatusDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "GetBookingStatusById",
+    "RelativePath": "api/BookingStatus/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "DeleteBookingStatusById",
+    "RelativePath": "api/BookingStatus/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "UpdateBookingStatus",
+    "RelativePath": "api/BookingStatus/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedBookingStatus",
+        "Type": "Flight_Booking.Models.BookingStatusDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.CityController",
     "Method": "GetCity",
     "RelativePath": "api/City",
@@ -553,6 +711,243 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "GetPayment",
+    "RelativePath": "api/Payment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "InsertPayment",
+    "RelativePath": "api/Payment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Payment",
+        "Type": "Flight_Booking.Models.PaymentDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "GetPaymentById",
+    "RelativePath": "api/Payment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "DeletePaymentById",
+    "RelativePath": "api/Payment/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "UpdatePayment",
+    "RelativePath": "api/Payment/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedPayment",
+        "Type": "Flight_Booking.Models.PaymentDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "GetPaymentMethod",
+    "RelativePath": "api/PaymentMethod",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "InsertPaymentMethod",
+    "RelativePath": "api/PaymentMethod",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PaymentMethod",
+        "Type": "Flight_Booking.Models.PaymentMethodDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "GetPaymentMethodById",
+    "RelativePath": "api/PaymentMethod/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "DeletePaymentMethodById",
+    "RelativePath": "api/PaymentMethod/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "UpdatePaymentMethod",
+    "RelativePath": "api/PaymentMethod/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedPaymentMethod",
+        "Type": "Flight_Booking.Models.PaymentMethodDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
+    "Method": "GetPaymentStatus",
+    "RelativePath": "api/PaymentStatus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
+    "Method": "InsertPaymentStatus",
+    "RelativePath": "api/PaymentStatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PaymentStatus",
+        "Type": "Flight_Booking.Models.PaymentStatusDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
+    "Method": "GetPaymentStatusById",
+    "RelativePath": "api/PaymentStatus/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
+    "Method": "DeletePaymentStatusById",
+    "RelativePath": "api/PaymentStatus/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
+    "Method": "UpdatePaymentStatus",
+    "RelativePath": "api/PaymentStatus/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedPaymentStatus",
+        "Type": "Flight_Booking.Models.PaymentStatusDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
     "Method": "GetSeat",
     "RelativePath": "api/Seat",
@@ -705,6 +1100,85 @@
       {
         "Name": "updatedState",
         "Type": "Flight_Booking.Models.StateDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.TravelClassController",
+    "Method": "GetTravelClass",
+    "RelativePath": "api/TravelClass",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.TravelClassController",
+    "Method": "InsertTravelClass",
+    "RelativePath": "api/TravelClass",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "TravelClass",
+        "Type": "Flight_Booking.Models.TravelClassDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.TravelClassController",
+    "Method": "GetTravelClassById",
+    "RelativePath": "api/TravelClass/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.TravelClassController",
+    "Method": "DeleteTravelClassById",
+    "RelativePath": "api/TravelClass/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.TravelClassController",
+    "Method": "UpdateTravelClass",
+    "RelativePath": "api/TravelClass/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedTravelClass",
+        "Type": "Flight_Booking.Models.TravelClassDetail",
         "IsRequired": true
       }
     ],

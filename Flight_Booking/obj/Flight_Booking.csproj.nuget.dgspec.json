@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Flight_Booking.csproj": {}
+    "D:\\Adv.net-project\\Flight_Booking\\Flight_Booking.csproj": {}
   },
   "projects": {
-    "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Flight_Booking.csproj": {
+    "D:\\Adv.net-project\\Flight_Booking\\Flight_Booking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Flight_Booking.csproj",
+        "projectUniqueName": "D:\\Adv.net-project\\Flight_Booking\\Flight_Booking.csproj",
         "projectName": "Flight_Booking",
-        "projectPath": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\Flight_Booking.csproj",
+        "projectPath": "D:\\Adv.net-project\\Flight_Booking\\Flight_Booking.csproj",
         "packagesPath": "C:\\Users\\KRISH\\.nuget\\packages\\",
-        "outputPath": "D:\\sem 5\\adv .net\\Self Project\\Flight_Booking\\obj\\",
+        "outputPath": "D:\\Adv.net-project\\Flight_Booking\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
