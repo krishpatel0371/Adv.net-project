@@ -8,7 +8,7 @@ public partial class PaymentStatusDetail
 {
     public int PaymentStatusId { get; set; }
 
-    public string StatusName { get; set; } = null!;
+    public string? StatusName { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

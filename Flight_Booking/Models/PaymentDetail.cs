@@ -22,7 +22,7 @@ public partial class PaymentDetail
 
     public DateTime Modified { get; set; }
     [JsonIgnore]
-    public virtual BookingDetail Booking { get; set; } = null!;
+    public virtual BookingDetail? Booking { get; set; } = null!;
     [JsonIgnore]
     public virtual PaymentMethodDetail PaymentMethod { get; set; } = null!;
     [JsonIgnore]

@@ -20,5 +20,5 @@ public partial class SeatDetail
     [JsonIgnore]
     public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
     [JsonIgnore]
-    public virtual FlightDetail Flight { get; set; } = null!;
+    public virtual FlightDetail? Flight { get; set; } = null!;
 }

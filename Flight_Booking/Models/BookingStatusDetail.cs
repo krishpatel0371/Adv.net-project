@@ -8,7 +8,7 @@ public partial class BookingStatusDetail
 {
     public int BookingStatusId { get; set; }
 
-    public string StatusName { get; set; }
+    public string? StatusName { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

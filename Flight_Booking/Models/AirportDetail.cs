@@ -26,14 +26,14 @@ public partial class AirportDetail
     public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
 
     [JsonIgnore]
-    public virtual CityDetail City { get; set; }
+    public virtual CityDetail? City { get; set; }
 
     [JsonIgnore]
-    public virtual CountryDetail Country { get; set; } = null!;
+    public virtual CountryDetail? Country { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual IataDetail Iata { get; set; } = null!;
+    public virtual IataDetail? Iata { get; set; } = null!;
     
     [JsonIgnore]
-    public virtual StateDetail State { get; set; } = null!;
+    public virtual StateDetail? State { get; set; } = null!;
 }

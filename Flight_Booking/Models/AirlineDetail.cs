@@ -8,7 +8,7 @@ public partial class AirlineDetail
 {
     public int AirlineId { get; set; }
 
-    public string AirlineName { get; set; } = null!;
+    public string? AirlineName { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

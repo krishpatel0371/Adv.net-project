@@ -8,7 +8,7 @@ public partial class PaymentMethodDetail
 {
     public int PaymentMethodId { get; set; }
 
-    public string PaymentMethod { get; set; }
+    public string? PaymentMethod { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

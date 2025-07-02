@@ -8,7 +8,7 @@ public partial class TravelClassDetail
 {
     public int TravelClassId { get; set; }
 
-    public string TravelClassName { get; set; }
+    public string? TravelClassName { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

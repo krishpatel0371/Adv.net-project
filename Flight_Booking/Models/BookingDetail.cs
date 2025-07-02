@@ -27,23 +27,23 @@ public partial class BookingDetail
     public DateTime Modified { get; set; }
 
     [JsonIgnore]
-    public virtual AirportDetail Airport { get; set; } = null!;
+    public virtual AirportDetail? Airport { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual BookingStatusDetail BookingStatus { get; set; } = null!;
+    public virtual BookingStatusDetail? BookingStatus { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual FlightDetail Flight { get; set; } = null!;
+    public virtual FlightDetail? Flight { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual PassengerDetail Passenger { get; set; } = null!;
+    public virtual PassengerDetail? Passenger { get; set; } = null!;
 
     [JsonIgnore]
     public virtual ICollection<PaymentDetail> PaymentDetails { get; set; } = new List<PaymentDetail>();
 
     [JsonIgnore]
-    public virtual SeatDetail Seat { get; set; } = null!;
+    public virtual SeatDetail? Seat { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual TravelClassDetail TravelClass { get; set; } = null!;
+    public virtual TravelClassDetail? TravelClass { get; set; } = null!;
 }

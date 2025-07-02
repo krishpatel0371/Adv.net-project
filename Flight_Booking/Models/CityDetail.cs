@@ -8,9 +8,9 @@ public partial class CityDetail
 {
     public int CityID { get; set; }
 
-    public string CityNameFull { get; set; } = null!;
+    public string? CityNameFull { get; set; } = null!;
 
-    public string CityNameShort { get; set; } = null!;
+    public string? CityNameShort { get; set; } = null!;
 
     public DateTime Created { get; set; }
 

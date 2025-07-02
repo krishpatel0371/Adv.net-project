@@ -8,7 +8,7 @@ public partial class StateDetail
 {
     public int StateId { get; set; }
 
-    public string StateName { get; set; } = null!;
+    public string? StateName { get; set; } = null!;
 
     public DateTime Created { get; set; }
 
