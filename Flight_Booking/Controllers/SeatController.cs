@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,76 +20,86 @@ namespace Flight_Booking.Controllers
 
         #region GetSeat GET: api/Seat
         [HttpGet]
-        public IActionResult GetSeat()
+        public async Task<ActionResult<IEnumerable<SeatDetail>>> GetAll()
         {
-            var Seat = _context.SeatDetails.ToList();
-            return Ok(Seat);
+            return await _context.SeatDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetSeatById GET: api/Seat/5
         [HttpGet("{id}")]
-        public IActionResult GetSeatById(int id)
+        public async Task<ActionResult<SeatDetail>> GetById(int id)
         {
-            var Seat = _context.SeatDetails.Find(id);
-            if (Seat == null)
-            {
-                return NotFound();
-            }
-            return Ok(Seat);
+            var seat = await _context.SeatDetails.FindAsync(id);
+            return seat == null ? NotFound() : Ok(seat);
         }
         #endregion
 
         #region DeleteSeatById DELETE: api/Seat/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteSeatById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Seat = _context.SeatDetails.Find(id);
-            if (Seat == null)
-            {
+            var seat = await _context.SeatDetails.FindAsync(id);
+            if (seat == null)
                 return NotFound();
-            }
 
-            _context.SeatDetails.Remove(Seat);
-            _context.SaveChanges();
+            _context.SeatDetails.Remove(seat);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
 
         #region InsertSeat POST: api/Seat
         [HttpPost]
-        public IActionResult InsertSeat(SeatDetail Seat)
+        public async Task<IActionResult> Create(SeatDetail seat)
         {
-            _context.SeatDetails.Add(Seat);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetSeatById), new { id = Seat.SeatId }, Seat);
+            _context.SeatDetails.Add(seat);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = seat.SeatId }, seat);
         }
         #endregion
 
         #region UpdateSeat PUT: api/Seat/5
         [HttpPut("{id}")]
-        public IActionResult UpdateSeat(int id, SeatDetail updatedSeat)
+        public async Task<IActionResult> Update(int id, SeatDetail updatedSeat)
         {
             if (id != updatedSeat.SeatId)
-            {
                 return BadRequest();
-            }
 
-            var Seat = _context.SeatDetails.Find(id);
-            if (Seat == null)
-            {
+            var seat = await _context.SeatDetails.FindAsync(id);
+            if (seat == null)
                 return NotFound();
-            }
 
-            Seat.SeatNumber = updatedSeat.SeatNumber;
-            Seat.FlightId = updatedSeat.FlightId;
-            Seat.IsBooked = updatedSeat.IsBooked;
+            seat.SeatNumber = updatedSeat.SeatNumber;
+            seat.FlightId = updatedSeat.FlightId;
+            seat.IsBooked = updatedSeat.IsBooked;
 
-            _context.SeatDetails.Update(Seat);
-            _context.SaveChanges();
+            _context.Entry(seat).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
+
+        #region Get Dropdown Flights for Seat
+
+        [HttpGet("dropdown/flights")]
+        public async Task<IActionResult> GetFlightsForDropdown()
+        {
+            var flights = await _context.FlightDetails
+                .Select(f => new
+                {
+                    f.FlightId,
+                    f.FlightNumber
+                })
+                .ToListAsync();
+
+            return Ok(flights);
+        }
+
+        #endregion
+
     }
 }

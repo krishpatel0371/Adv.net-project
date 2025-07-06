@@ -27,13 +27,10 @@ public partial class AirportDetail
 
     [JsonIgnore]
     public virtual CityDetail? City { get; set; }
-
     [JsonIgnore]
     public virtual CountryDetail? Country { get; set; } = null!;
-
     [JsonIgnore]
     public virtual IataDetail? Iata { get; set; } = null!;
-    
     [JsonIgnore]
     public virtual StateDetail? State { get; set; } = null!;
 }

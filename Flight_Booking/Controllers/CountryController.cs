@@ -2,6 +2,7 @@
 using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -20,73 +21,59 @@ namespace Flight_Booking.Controllers
 
         #region GetCountry GET: api/Country
         [HttpGet]
-        public IActionResult GetCountry()
+        public async Task<ActionResult<IEnumerable<CountryDetail>>> GetAll()
         {
-            var Country = _context.CountryDetails.ToList();
-            return Ok(Country);
+            return await _context.CountryDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetCountryById GET: api/Country/5
         [HttpGet("{id}")]
-        public IActionResult GetCountryById(int id)
+        public async Task<ActionResult<CountryDetail>> GetById(int id)
         {
-            var Country = _context.CountryDetails.Find(id);
-            if (Country == null)
-            {
-                return NotFound();
-            }
-            return Ok(Country);
+            var country = await _context.CountryDetails.FindAsync(id);
+            return country == null ? NotFound() : Ok(country);
         }
         #endregion
 
         #region DeleteCountryById DELETE: api/Country/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteCountryById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Country = _context.CountryDetails.Find(id);
-            if (Country == null)
-            {
-                return NotFound();
-            }
+            var country = await _context.CountryDetails.FindAsync(id);
+            if (country == null) return NotFound();
 
-            _context.CountryDetails.Remove(Country);
-            _context.SaveChanges();
+            _context.CountryDetails.Remove(country);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertCountry POST: api/Country
         [HttpPost]
-        public IActionResult InsertCountry(CountryDetail Country)
+        public async Task<IActionResult> Create(CountryDetail country)
         {
-            _context.CountryDetails.Add(Country);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetCountryById), new { id = Country.CountryId }, Country);
+            _context.CountryDetails.Add(country);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = country.CountryId }, country);
         }
         #endregion
 
         #region UpdateCountry PUT: api/Country/5
         [HttpPut("{id}")]
-        public IActionResult UpdateCountry(int id, CountryDetail updatedCountry)
+        public async Task<IActionResult> Update(int id, CountryDetail country)
         {
-            if (id != updatedCountry.CountryId)
-            {
-                return BadRequest();
-            }
+            if (id != country.CountryId) return BadRequest();
 
-            var Country = _context.CountryDetails.Find(id);
-            if (Country == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.CountryDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            Country.CountryName = updatedCountry.CountryName;
+            existing.CountryName = country.CountryName;
 
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.CountryDetails.Update(Country);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion

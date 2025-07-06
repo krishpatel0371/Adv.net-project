@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,81 +20,73 @@ namespace Flight_Booking.Controllers
 
         #region GetPassenger GET: api/Passenger
         [HttpGet]
-        public IActionResult GetPassenger()
+        public async Task<ActionResult<IEnumerable<PassengerDetail>>> GetAll()
         {
-            var passenger = _context.PassengerDetails.ToList();
-            return Ok(passenger);
+            return await _context.PassengerDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetpassengerById GET: api/passenger/5
         [HttpGet("{id}")]
-        public IActionResult GetpassengerById(int id)
+        public async Task<ActionResult<PassengerDetail>> GetById(int id)
         {
-            var passenger = _context.PassengerDetails.Find(id);
-            if (passenger == null)
-            {
-                return NotFound();
-            }
-            return Ok(passenger);
+            var passenger = await _context.PassengerDetails.FindAsync(id);
+            return passenger == null ? NotFound() : Ok(passenger);
         }
         #endregion
 
         #region DeletepassengerById DELETE: api/passenger/5
         [HttpDelete("{id}")]
-        public IActionResult DeletepassengerById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var passenger = _context.PassengerDetails.Find(id);
+            var passenger = await _context.PassengerDetails.FindAsync(id);
             if (passenger == null)
-            {
                 return NotFound();
-            }
 
             _context.PassengerDetails.Remove(passenger);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
 
         #region Insertpassenger POST: api/passenger
         [HttpPost]
-        public IActionResult InsertHospital(PassengerDetail passenger)
+        public async Task<IActionResult> Create(PassengerDetail passenger)
         {
             _context.PassengerDetails.Add(passenger);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetpassengerById), new { id = passenger.PassengerID }, passenger);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = passenger.PassengerID }, passenger);
         }
         #endregion
 
         #region Updatepassenger PUT: api/passenger/5
         [HttpPut("{id}")]
-        public IActionResult UpdateHospital(int id, PassengerDetail updatedpassenger)
+        public async Task<IActionResult> Update(int id, PassengerDetail updatedPassenger)
         {
-            if (id != updatedpassenger.PassengerID)
-            {
+            if (id != updatedPassenger.PassengerID)
                 return BadRequest();
-            }
 
-            var passenger = _context.PassengerDetails.Find(id);
+            var passenger = await _context.PassengerDetails.FindAsync(id);
             if (passenger == null)
-            {
                 return NotFound();
-            }
 
-            passenger.FirstName = updatedpassenger.FirstName;
-            passenger.LastName = updatedpassenger.LastName;
-            passenger.Gender = updatedpassenger.Gender;
-            passenger.Dob = updatedpassenger.Dob;
-            passenger.Email = updatedpassenger.Email;
-            passenger.PhoneNumber = updatedpassenger.PhoneNumber;
-            passenger.PassportNumber = updatedpassenger.PassportNumber;
-            passenger.Address = updatedpassenger.Address;
+            passenger.FirstName = updatedPassenger.FirstName;
+            passenger.LastName = updatedPassenger.LastName;
+            passenger.Gender = updatedPassenger.Gender;
+            passenger.Dob = updatedPassenger.Dob;
+            passenger.Email = updatedPassenger.Email;
+            passenger.PhoneNumber = updatedPassenger.PhoneNumber;
+            passenger.PassportNumber = updatedPassenger.PassportNumber;
+            passenger.Address = updatedPassenger.Address;
 
-            _context.PassengerDetails.Update(passenger);
-            _context.SaveChanges();
+            _context.Entry(passenger).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
+
         #endregion
 
 

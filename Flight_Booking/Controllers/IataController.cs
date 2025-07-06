@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,74 +20,73 @@ namespace Flight_Booking.Controllers
 
         #region GetIata GET: api/Iata
         [HttpGet]
-        public IActionResult GetIata()
+        public async Task<ActionResult<IEnumerable<IataDetail>>> GetAll()
         {
-            var Iata = _context.IataDetails.ToList();
-            return Ok(Iata);
+            return await _context.IataDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetIataById GET: api/Iata/5
         [HttpGet("{id}")]
-        public IActionResult GetIataById(int id)
+        public async Task<ActionResult<IataDetail>> GetById(int id)
         {
-            var Iata = _context.IataDetails.Find(id);
-            if (Iata == null)
-            {
-                return NotFound();
-            }
-            return Ok(Iata);
+            var iata = await _context.IataDetails.FindAsync(id);
+            return iata == null ? NotFound() : Ok(iata);
         }
         #endregion
 
         #region DeleteIataById DELETE: api/Iata/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteIataById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Iata = _context.IataDetails.Find(id);
-            if (Iata == null)
-            {
+            var iata = await _context.IataDetails.FindAsync(id);
+            if (iata == null)
                 return NotFound();
-            }
 
-            _context.IataDetails.Remove(Iata);
-            _context.SaveChanges();
+            _context.IataDetails.Remove(iata);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
 
         #region InsertIata POST: api/Iata
         [HttpPost]
-        public IActionResult InsertIata(IataDetail Iata)
+        public async Task<IActionResult> Create(IataDetail iata)
         {
-            _context.IataDetails.Add(Iata);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetIataById), new { id = Iata.IataId }, Iata);
+            _context.IataDetails.Add(iata);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = iata.IataId }, iata);
         }
         #endregion
 
         #region UpdateIata PUT: api/Iata/5
         [HttpPut("{id}")]
-        public IActionResult UpdateIata(int id, IataDetail updatedIata)
+        public async Task<IActionResult> Update(int id, IataDetail iata)
         {
-            if (id != updatedIata.IataId)
-            {
+            if (id != iata.IataId)
                 return BadRequest();
-            }
 
-            var Iata = _context.IataDetails.Find(id);
-            if (Iata == null)
-            {
+            var existing = await _context.IataDetails.FindAsync(id);
+            if (existing == null)
                 return NotFound();
-            }
 
-            Iata.Iatacode = updatedIata.Iatacode;
+            existing.Iatacode = iata.Iatacode;
 
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.IataDetails.Update(Iata);
-            _context.SaveChanges();
             return NoContent();
+        }
+        #endregion
+
+        #region Get by Code (e.g., filter by IATA code)
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<IataDetail>> GetByCode(string code)
+        {
+            var iata = await _context.IataDetails.FirstOrDefaultAsync(i => i.Iatacode == code);
+            return iata == null ? NotFound() : Ok(iata);
         }
         #endregion
     }

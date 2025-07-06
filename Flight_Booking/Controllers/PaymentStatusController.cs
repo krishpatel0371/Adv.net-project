@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,73 +20,62 @@ namespace Flight_Booking.Controllers
 
         #region GetPaymentStatus GET: api/PaymentStatus
         [HttpGet]
-        public IActionResult GetPaymentStatus()
+        public async Task<ActionResult<IEnumerable<PaymentStatusDetail>>> GetAll()
         {
-            var PaymentStatus = _context.PaymentStatusDetails.ToList();
-            return Ok(PaymentStatus);
+            return await _context.PaymentStatusDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetPaymentStatusById GET: api/PaymentStatus/5
         [HttpGet("{id}")]
-        public IActionResult GetPaymentStatusById(int id)
+        public async Task<ActionResult<PaymentStatusDetail>> GetById(int id)
         {
-            var PaymentStatus = _context.PaymentStatusDetails.Find(id);
-            if (PaymentStatus == null)
-            {
-                return NotFound();
-            }
-            return Ok(PaymentStatus);
+            var status = await _context.PaymentStatusDetails.FindAsync(id);
+            return status == null ? NotFound() : Ok(status);
         }
         #endregion
 
         #region DeletePaymentStatusById DELETE: api/PaymentStatus/5
         [HttpDelete("{id}")]
-        public IActionResult DeletePaymentStatusById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var PaymentStatus = _context.PaymentStatusDetails.Find(id);
-            if (PaymentStatus == null)
-            {
+            var status = await _context.PaymentStatusDetails.FindAsync(id);
+            if (status == null)
                 return NotFound();
-            }
 
-            _context.PaymentStatusDetails.Remove(PaymentStatus);
-            _context.SaveChanges();
+            _context.PaymentStatusDetails.Remove(status);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertPaymentStatus POST: api/PaymentStatus
         [HttpPost]
-        public IActionResult InsertPaymentStatus(PaymentStatusDetail PaymentStatus)
+        public async Task<IActionResult> Create(PaymentStatusDetail status)
         {
-            _context.PaymentStatusDetails.Add(PaymentStatus);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetPaymentStatusById), new { id = PaymentStatus.PaymentStatusId }, PaymentStatus);
+            _context.PaymentStatusDetails.Add(status);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = status.PaymentStatusId }, status);
         }
         #endregion
 
         #region UpdatePaymentStatus PUT: api/PaymentStatus/5
         [HttpPut("{id}")]
-        public IActionResult UpdatePaymentStatus(int id, PaymentStatusDetail updatedPaymentStatus)
+        public async Task<IActionResult> Update(int id, PaymentStatusDetail updated)
         {
-            if (id != updatedPaymentStatus.PaymentStatusId)
-            {
+            if (id != updated.PaymentStatusId)
                 return BadRequest();
-            }
 
-            var PaymentStatus = _context.PaymentStatusDetails.Find(id);
-            if (PaymentStatus == null)
-            {
+            var status = await _context.PaymentStatusDetails.FindAsync(id);
+            if (status == null)
                 return NotFound();
-            }
 
-            PaymentStatus.StatusName = updatedPaymentStatus.StatusName;
+            status.StatusName = updated.StatusName;
 
+            _context.Entry(status).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.PaymentStatusDetails.Update(PaymentStatus);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion

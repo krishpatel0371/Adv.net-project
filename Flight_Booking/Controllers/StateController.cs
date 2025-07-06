@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,75 +20,75 @@ namespace Flight_Booking.Controllers
 
         #region GetState GET: api/State
         [HttpGet]
-        public IActionResult GetState()
+        public async Task<ActionResult<IEnumerable<StateDetail>>> GetState()
         {
-            var State = _context.StateDetails.ToList();
-            return Ok(State);
+            return await _context.StateDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetStateById GET: api/State/5
         [HttpGet("{id}")]
-        public IActionResult GetStateById(int id)
+        public async Task<ActionResult<StateDetail>> GetStateById(int id)
         {
-            var State = _context.StateDetails.Find(id);
-            if (State == null)
-            {
-                return NotFound();
-            }
-            return Ok(State);
+            var state = await _context.StateDetails.FindAsync(id);
+            return state == null ? NotFound() : Ok(state);
         }
         #endregion
 
         #region DeleteStateById DELETE: api/State/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteStateById(int id)
+        public async Task<IActionResult> DeleteStateById(int id)
         {
-            var State = _context.StateDetails.Find(id);
-            if (State == null)
-            {
+            var state = await _context.StateDetails.FindAsync(id);
+            if (state == null)
                 return NotFound();
-            }
 
-            _context.StateDetails.Remove(State);
-            _context.SaveChanges();
+            _context.StateDetails.Remove(state);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertState POST: api/State
         [HttpPost]
-        public IActionResult InsertState(StateDetail State)
+        public async Task<ActionResult<StateDetail>> InsertState(StateDetail state)
         {
-            _context.StateDetails.Add(State);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetStateById), new { id = State.StateId }, State);
+            _context.StateDetails.Add(state);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetStateById), new { id = state.StateId }, state);
         }
         #endregion
 
         #region UpdateState PUT: api/State/5
         [HttpPut("{id}")]
-        public IActionResult UpdateState(int id, StateDetail updatedState)
+        public async Task<IActionResult> UpdateState(int id, StateDetail updatedState)
         {
             if (id != updatedState.StateId)
-            {
                 return BadRequest();
-            }
 
-            var State = _context.StateDetails.Find(id);
-            if (State == null)
-            {
+            var state = await _context.StateDetails.FindAsync(id);
+            if (state == null)
                 return NotFound();
-            }
 
-            State.StateName = updatedState.StateName;
+            state.StateName = updatedState.StateName;
+            _context.Entry(state).State = EntityState.Modified;
 
-
-            _context.StateDetails.Update(State);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
+
+        [HttpGet("dropdown-country")]
+        public IActionResult GetCountryDropdown()
+        {
+            var countries = _context.CountryDetails
+                .Select(c => new { c.CountryId, c.CountryName })
+                .ToList();
+
+            return Ok(countries);
+        }
+
     }
 }

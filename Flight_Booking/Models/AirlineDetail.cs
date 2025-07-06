@@ -13,7 +13,6 @@ public partial class AirlineDetail
     public DateTime Created { get; set; }
 
     public DateTime Modified { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<FlightDetail> FlightDetails { get; set; } = new List<FlightDetail>();
 }

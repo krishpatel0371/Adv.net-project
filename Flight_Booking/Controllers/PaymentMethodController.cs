@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,73 +20,62 @@ namespace Flight_Booking.Controllers
 
         #region GetPaymentMethod GET: api/PaymentMethod
         [HttpGet]
-        public IActionResult GetPaymentMethod()
+        public async Task<ActionResult<IEnumerable<PaymentMethodDetail>>> GetAll()
         {
-            var PaymentMethod = _context.PaymentMethodDetails.ToList();
-            return Ok(PaymentMethod);
+            return await _context.PaymentMethodDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetPaymentMethodById GET: api/PaymentMethod/5
         [HttpGet("{id}")]
-        public IActionResult GetPaymentMethodById(int id)
+        public async Task<ActionResult<PaymentMethodDetail>> GetById(int id)
         {
-            var PaymentMethod = _context.PaymentMethodDetails.Find(id);
-            if (PaymentMethod == null)
-            {
-                return NotFound();
-            }
-            return Ok(PaymentMethod);
+            var method = await _context.PaymentMethodDetails.FindAsync(id);
+            return method == null ? NotFound() : Ok(method);
         }
         #endregion
 
         #region DeletePaymentMethodById DELETE: api/PaymentMethod/5
         [HttpDelete("{id}")]
-        public IActionResult DeletePaymentMethodById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var PaymentMethod = _context.PaymentMethodDetails.Find(id);
-            if (PaymentMethod == null)
-            {
+            var method = await _context.PaymentMethodDetails.FindAsync(id);
+            if (method == null)
                 return NotFound();
-            }
 
-            _context.PaymentMethodDetails.Remove(PaymentMethod);
-            _context.SaveChanges();
+            _context.PaymentMethodDetails.Remove(method);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
 
         #region InsertPaymentMethod POST: api/PaymentMethod
         [HttpPost]
-        public IActionResult InsertPaymentMethod(PaymentMethodDetail PaymentMethod)
+        public async Task<IActionResult> Create(PaymentMethodDetail method)
         {
-            _context.PaymentMethodDetails.Add(PaymentMethod);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetPaymentMethodById), new { id = PaymentMethod.PaymentMethodId }, PaymentMethod);
+            _context.PaymentMethodDetails.Add(method);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = method.PaymentMethodId }, method);
         }
         #endregion
 
         #region UpdatePaymentMethod PUT: api/PaymentMethod/5
         [HttpPut("{id}")]
-        public IActionResult UpdatePaymentMethod(int id, PaymentMethodDetail updatedPaymentMethod)
+        public async Task<IActionResult> Update(int id, PaymentMethodDetail method)
         {
-            if (id != updatedPaymentMethod.PaymentMethodId)
-            {
+            if (id != method.PaymentMethodId)
                 return BadRequest();
-            }
 
-            var PaymentMethod = _context.PaymentMethodDetails.Find(id);
-            if (PaymentMethod == null)
-            {
+            var existing = await _context.PaymentMethodDetails.FindAsync(id);
+            if (existing == null)
                 return NotFound();
-            }
 
-            PaymentMethod.PaymentMethod = updatedPaymentMethod.PaymentMethod;
+            existing.PaymentMethod = method.PaymentMethod;
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-
-            _context.PaymentMethodDetails.Update(PaymentMethod);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion

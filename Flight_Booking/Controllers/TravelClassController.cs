@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,72 +20,67 @@ namespace Flight_Booking.Controllers
 
         #region GetTravelClass GET: api/TravelClass
         [HttpGet]
-        public IActionResult GetTravelClass()
+        public async Task<ActionResult<IEnumerable<TravelClassDetail>>> GetTravelClass()
         {
-            var TravelClass = _context.TravelClassDetails.ToList();
-            return Ok(TravelClass);
+            return await _context.TravelClassDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetTravelClassById GET: api/TravelClass/5
         [HttpGet("{id}")]
-        public IActionResult GetTravelClassById(int id)
+        public async Task<ActionResult<TravelClassDetail>> GetTravelClassById(int id)
         {
-            var TravelClass = _context.TravelClassDetails.Find(id);
-            if (TravelClass == null)
-            {
+            var travelClass = await _context.TravelClassDetails.FindAsync(id);
+            if (travelClass == null)
                 return NotFound();
-            }
-            return Ok(TravelClass);
+
+            return Ok(travelClass);
         }
         #endregion
 
         #region DeleteTravelClassById DELETE: api/TravelClass/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteTravelClassById(int id)
+        public async Task<IActionResult> DeleteTravelClassById(int id)
         {
-            var TravelClass = _context.TravelClassDetails.Find(id);
-            if (TravelClass == null)
-            {
+            var travelClass = await _context.TravelClassDetails.FindAsync(id);
+            if (travelClass == null)
                 return NotFound();
-            }
 
-            _context.TravelClassDetails.Remove(TravelClass);
-            _context.SaveChanges();
+            _context.TravelClassDetails.Remove(travelClass);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
 
         #region InsertTravelClass POST: api/TravelClass
         [HttpPost]
-        public IActionResult InsertTravelClass(TravelClassDetail TravelClass)
+        public async Task<ActionResult<TravelClassDetail>> InsertTravelClass(TravelClassDetail travelClass)
         {
-            _context.TravelClassDetails.Add(TravelClass);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetTravelClassById), new { id = TravelClass.TravelClassId }, TravelClass);
+            _context.TravelClassDetails.Add(travelClass);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetTravelClassById), new { id = travelClass.TravelClassId }, travelClass);
         }
         #endregion
 
         #region UpdateTravelClass PUT: api/TravelClass/5
         [HttpPut("{id}")]
-        public IActionResult UpdateTravelClass(int id, TravelClassDetail updatedTravelClass)
+        public async Task<IActionResult> UpdateTravelClass(int id, TravelClassDetail updatedTravelClass)
         {
             if (id != updatedTravelClass.TravelClassId)
-            {
                 return BadRequest();
-            }
 
-            var TravelClass = _context.TravelClassDetails.Find(id);
-            if (TravelClass == null)
-            {
+            var travelClass = await _context.TravelClassDetails.FindAsync(id);
+            if (travelClass == null)
                 return NotFound();
-            }
 
-            TravelClass.TravelClassName = updatedTravelClass.TravelClassName;
+            travelClass.TravelClassName = updatedTravelClass.TravelClassName;
 
-            _context.TravelClassDetails.Update(TravelClass);
-            _context.SaveChanges();
+            _context.Entry(travelClass).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion

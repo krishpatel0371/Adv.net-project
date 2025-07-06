@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,80 +20,129 @@ namespace Flight_Booking.Controllers
 
         #region GetBooking GET: api/Booking
         [HttpGet]
-        public IActionResult GetBooking()
+        public async Task<ActionResult<IEnumerable<BookingDetail>>> GetAll()
         {
-            var Booking = _context.BookingDetails.ToList();
-            return Ok(Booking);
+            return await _context.BookingDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetBookingById GET: api/Booking/5
         [HttpGet("{id}")]
-        public IActionResult GetBookingById(int id)
+        public async Task<ActionResult<BookingDetail>> GetById(int id)
         {
-            var Booking = _context.BookingDetails.Find(id);
-            if (Booking == null)
-            {
-                return NotFound();
-            }
-            return Ok(Booking);
+            var booking = await _context.BookingDetails.FindAsync(id);
+            return booking == null ? NotFound() : Ok(booking);
         }
         #endregion
 
         #region DeleteBookingById DELETE: api/Booking/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteBookingById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Booking = _context.BookingDetails.Find(id);
-            if (Booking == null)
-            {
-                return NotFound();
-            }
+            var booking = await _context.BookingDetails.FindAsync(id);
+            if (booking == null) return NotFound();
 
-            _context.BookingDetails.Remove(Booking);
-            _context.SaveChanges();
+            _context.BookingDetails.Remove(booking);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertBooking POST: api/Booking
         [HttpPost]
-        public IActionResult InsertBooking(BookingDetail Booking)
+        public async Task<IActionResult> Create(BookingDetail booking)
         {
-            _context.BookingDetails.Add(Booking);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetBookingById), new { id = Booking.BookingId }, Booking);
+            _context.BookingDetails.Add(booking);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = booking.BookingId }, booking);
         }
         #endregion
 
         #region UpdateBooking PUT: api/Booking/5
         [HttpPut("{id}")]
-        public IActionResult UpdateBooking(int id, BookingDetail updatedBooking)
+        public async Task<IActionResult> Update(int id, BookingDetail booking)
         {
-            if (id != updatedBooking.BookingId)
-            {
-                return BadRequest();
-            }
+            if (id != booking.BookingId) return BadRequest();
 
-            var Booking = _context.BookingDetails.Find(id);
-            if (Booking == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.BookingDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            Booking.PassengerId = updatedBooking.PassengerId;
-            Booking.AirportId = updatedBooking.AirportId;
-            Booking.FlightId = updatedBooking.FlightId;
-            Booking.TravelClassId = updatedBooking.TravelClassId;
-            Booking.SeatId = updatedBooking.SeatId;
-            Booking.BookingDate = updatedBooking.BookingDate;
-            Booking.BookingStatusId = updatedBooking.BookingStatusId;
+            existing.PassengerId = booking.PassengerId;
+            existing.AirportId = booking.AirportId;
+            existing.FlightId = booking.FlightId;
+            existing.TravelClassId = booking.TravelClassId;
+            existing.SeatId = booking.SeatId;
+            existing.BookingDate = booking.BookingDate;
+            existing.BookingStatusId = booking.BookingStatusId;
 
-            _context.BookingDetails.Update(Booking);
-            _context.SaveChanges();
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
+
+        #region Get Bookings by Passenger, Status, or Date
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<BookingDetail>>> Filter(
+            [FromQuery] int? passengerId,
+            [FromQuery] int? statusId,
+            [FromQuery] DateTime? date)
+        {
+            var query = _context.BookingDetails.AsQueryable();
+
+            if (passengerId.HasValue)
+                query = query.Where(b => b.PassengerId == passengerId);
+
+            if (statusId.HasValue)
+                query = query.Where(b => b.BookingStatusId == statusId);
+
+            if (date.HasValue)
+                query = query.Where(b => b.BookingDate.Date == date.Value.Date);
+
+            return await query.ToListAsync();
+        }
+        #endregion
+
+        [HttpGet("dropdown-data")]
+        public async Task<IActionResult> GetBookingDropdownData()
+        {
+            var passengers = await _context.PassengerDetails
+                .Select(p => new { p.PassengerID, FullName = p.FirstName + " " + p.LastName })
+                .ToListAsync();
+
+            var airports = await _context.AirportDetails
+                .Select(a => new { a.AirportId, a.AirportName })
+                .ToListAsync();
+
+            var flights = await _context.FlightDetails
+                .Select(f => new { f.FlightId, f.FlightNumber })
+                .ToListAsync();
+
+            var travelClasses = await _context.TravelClassDetails
+                .Select(tc => new { tc.TravelClassId, tc.TravelClassName })
+                .ToListAsync();
+
+            var seats = await _context.SeatDetails
+                .Where(s => !s.IsBooked) // Only available seats
+                .Select(s => new { s.SeatId, s.SeatNumber })
+                .ToListAsync();
+
+            var bookingStatuses = await _context.BookingStatusDetails
+                .Select(bs => new { bs.BookingStatusId, bs.StatusName })
+                .ToListAsync();
+
+            return Ok(new
+            {
+                Passengers = passengers,
+                Airports = airports,
+                Flights = flights,
+                TravelClasses = travelClasses,
+                Seats = seats,
+                BookingStatuses = bookingStatuses
+            });
+        }
+
     }
 }

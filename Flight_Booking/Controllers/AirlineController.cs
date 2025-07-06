@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,73 +20,59 @@ namespace Flight_Booking.Controllers
 
         #region GetAirline GET: api/Airline
         [HttpGet]
-        public IActionResult GetAirline()
+        public async Task<ActionResult<IEnumerable<AirlineDetail>>> GetAll()
         {
-            var Airline = _context.AirlineDetails.ToList();
-            return Ok(Airline);
+            return await _context.AirlineDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetAirlineById GET: api/Airline/5
         [HttpGet("{id}")]
-        public IActionResult GetAirlineById(int id)
+        public async Task<ActionResult<AirlineDetail>> GetById(int id)
         {
-            var Airline = _context.AirlineDetails.Find(id);
-            if (Airline == null)
-            {
-                return NotFound();
-            }
-            return Ok(Airline);
+            var airline = await _context.AirlineDetails.FindAsync(id);
+            return airline == null ? NotFound() : Ok(airline);
         }
         #endregion
 
         #region DeleteAirlineById DELETE: api/Airline/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteAirlineById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Airline = _context.AirlineDetails.Find(id);
-            if (Airline == null)
-            {
-                return NotFound();
-            }
+            var airline = await _context.AirlineDetails.FindAsync(id);
+            if (airline == null) return NotFound();
 
-            _context.AirlineDetails.Remove(Airline);
-            _context.SaveChanges();
+            _context.AirlineDetails.Remove(airline);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertAirline POST: api/Airline
         [HttpPost]
-        public IActionResult InsertAirline(AirlineDetail Airline)
+        public async Task<IActionResult> Create(AirlineDetail airline)
         {
-            _context.AirlineDetails.Add(Airline);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetAirlineById), new { id = Airline.AirlineId }, Airline);
+            _context.AirlineDetails.Add(airline);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = airline.AirlineId }, airline);
         }
         #endregion
 
         #region UpdateAirline PUT: api/Airline/5
         [HttpPut("{id}")]
-        public IActionResult UpdateAirline(int id, AirlineDetail updatedAirline)
+        public async Task<IActionResult> Update(int id, AirlineDetail airline)
         {
-            if (id != updatedAirline.AirlineId)
-            {
-                return BadRequest();
-            }
+            if (id != airline.AirlineId) return BadRequest();
 
-            var Airline = _context.AirlineDetails.Find(id);
-            if (Airline == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.AirlineDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            Airline.AirlineName = updatedAirline.AirlineName;
+            existing.AirlineName = airline.AirlineName;
 
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.AirlineDetails.Update(Airline);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion

@@ -13,7 +13,6 @@ public partial class BookingStatusDetail
     public DateTime Created { get; set; }
 
     public DateTime Modified { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
 }

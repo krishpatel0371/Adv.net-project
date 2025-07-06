@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_BookingStatus.Controllers
 {
@@ -19,73 +20,59 @@ namespace Flight_BookingStatus.Controllers
 
         #region GetBookingStatus GET: api/BookingStatus
         [HttpGet]
-        public IActionResult GetBookingStatus()
+        public async Task<ActionResult<IEnumerable<BookingStatusDetail>>> GetAll()
         {
-            var BookingStatus = _context.BookingStatusDetails.ToList();
-            return Ok(BookingStatus);
+            return await _context.BookingStatusDetails.ToListAsync();
         }
-
         #endregion
 
         #region GetBookingStatusById GET: api/BookingStatus/5
         [HttpGet("{id}")]
-        public IActionResult GetBookingStatusById(int id)
+        public async Task<ActionResult<BookingStatusDetail>> GetById(int id)
         {
-            var BookingStatus = _context.BookingStatusDetails.Find(id);
-            if (BookingStatus == null)
-            {
-                return NotFound();
-            }
-            return Ok(BookingStatus);
+            var status = await _context.BookingStatusDetails.FindAsync(id);
+            return status == null ? NotFound() : Ok(status);
         }
         #endregion
 
         #region DeleteBookingStatusById DELETE: api/BookingStatus/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteBookingStatusById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var BookingStatus = _context.BookingStatusDetails.Find(id);
-            if (BookingStatus == null)
-            {
-                return NotFound();
-            }
+            var status = await _context.BookingStatusDetails.FindAsync(id);
+            if (status == null) return NotFound();
 
-            _context.BookingStatusDetails.Remove(BookingStatus);
-            _context.SaveChanges();
+            _context.BookingStatusDetails.Remove(status);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertBookingStatus POST: api/BookingStatus
         [HttpPost]
-        public IActionResult InsertBookingStatus(BookingStatusDetail BookingStatus)
+        public async Task<IActionResult> Create(BookingStatusDetail status)
         {
-            _context.BookingStatusDetails.Add(BookingStatus);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetBookingStatusById), new { id = BookingStatus.BookingStatusId }, BookingStatus);
+            _context.BookingStatusDetails.Add(status);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = status.BookingStatusId }, status);
         }
+
         #endregion
 
         #region UpdateBookingStatus PUT: api/BookingStatus/5
         [HttpPut("{id}")]
-        public IActionResult UpdateBookingStatus(int id, BookingStatusDetail updatedBookingStatus)
+        public async Task<IActionResult> Update(int id, BookingStatusDetail status)
         {
-            if (id != updatedBookingStatus.BookingStatusId)
-            {
-                return BadRequest();
-            }
+            if (id != status.BookingStatusId) return BadRequest();
 
-            var BookingStatus = _context.BookingStatusDetails.Find(id);
-            if (BookingStatus == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.BookingStatusDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            BookingStatus.StatusName = updatedBookingStatus.StatusName;
-            
+            existing.StatusName = status.StatusName;
 
-            _context.BookingStatusDetails.Update(BookingStatus);
-            _context.SaveChanges();
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion

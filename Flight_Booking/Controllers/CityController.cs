@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,76 +20,87 @@ namespace Flight_Booking.Controllers
 
         #region GetCity GET: api/City
         [HttpGet]
-        public IActionResult GetCity()
+        public async Task<ActionResult<IEnumerable<CityDetail>>> GetAll()
         {
-            var City = _context.CityDetails.ToList();
-            return Ok(City);
+            return await _context.CityDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetCityById GET: api/City/5
         [HttpGet("{id}")]
-        public IActionResult GetCityById(int id)
+        public async Task<ActionResult<CityDetail>> GetById(int id)
         {
-            var City = _context.CityDetails.Find(id);
-            if (City == null)
-            {
-                return NotFound();
-            }
-            return Ok(City);
+            var city = await _context.CityDetails.FindAsync(id);
+            return city == null ? NotFound() : Ok(city);
         }
         #endregion
 
         #region DeleteCityById DELETE: api/City/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteCityById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var City = _context.CityDetails.Find(id);
-            if (City == null)
-            {
-                return NotFound();
-            }
+            var city = await _context.CityDetails.FindAsync(id);
+            if (city == null) return NotFound();
 
-            _context.CityDetails.Remove(City);
-            _context.SaveChanges();
+            _context.CityDetails.Remove(city);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertCity POST: api/City
         [HttpPost]
-        public IActionResult InsertCity(CityDetail City)
+        public async Task<IActionResult> Create(CityDetail city)
         {
-            _context.CityDetails.Add(City);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetCityById), new { id = City.CityID }, City);
+            _context.CityDetails.Add(city);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = city.CityID }, city);
         }
         #endregion
 
         #region UpdateCity PUT: api/City/5
         [HttpPut("{id}")]
-        public IActionResult UpdateCity(int id, CityDetail updatedCity)
+        public async Task<IActionResult> Update(int id, CityDetail city)
         {
-            if (id != updatedCity.CityID)
-            {
-                return BadRequest();
-            }
+            if (id != city.CityID) return BadRequest();
 
-            var City = _context.CityDetails.Find(id);
-            if (City == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.CityDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            City.CityNameFull = updatedCity.CityNameFull;
-            City.CityNameShort = updatedCity.CityNameShort;
-            
+            existing.CityNameFull = city.CityNameFull;
+            existing.CityNameShort = city.CityNameShort;
 
-            _context.CityDetails.Update(City);
-            _context.SaveChanges();
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
         #endregion
+
+        //#region Get Cities by Country or State
+        //[HttpGet("filter")]
+        //public async Task<ActionResult<IEnumerable<CityDetail>>> Filter([FromQuery] int? stateId, [FromQuery] int? countryId)
+        //{
+        //    var query = _context.CityDetails.AsQueryable();
+
+        //    return await query.ToListAsync();
+        //}
+        //#endregion
+
+        //[HttpGet("dropdown-country-state")]
+        //public IActionResult GetCountryStateDropdown()
+        //{
+        //    var countries = _context.CountryDetails
+        //        .Select(c => new { c.CountryId, c.CountryName })
+        //        .ToList();
+
+        //    var states = _context.StateDetails
+        //        .Select(s => new { s.StateId, s.StateName, s.CountryId })
+        //        .ToList();
+
+        //    return Ok(new { Countries = countries, States = states });
+        //}
+
     }
 }

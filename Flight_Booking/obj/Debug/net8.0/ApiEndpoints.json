@@ -1,24 +1,34 @@
 [
   {
     "ContainingType": "Flight_Booking.Controllers.AirlineController",
-    "Method": "GetAirline",
+    "Method": "GetAll",
     "RelativePath": "api/Airline",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.AirlineDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirlineController",
-    "Method": "InsertAirline",
+    "Method": "Create",
     "RelativePath": "api/Airline",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Airline",
+        "Name": "airline",
         "Type": "Flight_Booking.Models.AirlineDetail",
         "IsRequired": true
       }
@@ -27,7 +37,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirlineController",
-    "Method": "GetAirlineById",
+    "Method": "GetById",
     "RelativePath": "api/Airline/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -39,11 +49,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.AirlineDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirlineController",
-    "Method": "DeleteAirlineById",
+    "Method": "Delete",
     "RelativePath": "api/Airline/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -59,7 +79,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirlineController",
-    "Method": "UpdateAirline",
+    "Method": "Update",
     "RelativePath": "api/Airline/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -71,7 +91,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedAirline",
+        "Name": "airline",
         "Type": "Flight_Booking.Models.AirlineDetail",
         "IsRequired": true
       }
@@ -80,24 +100,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirportController",
-    "Method": "GetAirport",
+    "Method": "GetAll",
     "RelativePath": "api/Airport",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.AirportDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirportController",
-    "Method": "InsertAirport",
+    "Method": "Create",
     "RelativePath": "api/Airport",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Airport",
+        "Name": "airport",
         "Type": "Flight_Booking.Models.AirportDetail",
         "IsRequired": true
       }
@@ -106,7 +136,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirportController",
-    "Method": "GetAirportById",
+    "Method": "GetById",
     "RelativePath": "api/Airport/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -118,11 +148,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.AirportDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirportController",
-    "Method": "DeleteAirportById",
+    "Method": "Delete",
     "RelativePath": "api/Airport/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -138,7 +178,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.AirportController",
-    "Method": "UpdateAirport",
+    "Method": "Update",
     "RelativePath": "api/Airport/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -150,7 +190,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedAirport",
+        "Name": "airport",
         "Type": "Flight_Booking.Models.AirportDetail",
         "IsRequired": true
       }
@@ -158,9 +198,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Flight_Booking.Controllers.BookingController",
-    "Method": "GetBooking",
-    "RelativePath": "api/Booking",
+    "ContainingType": "Flight_Booking.Controllers.AirportController",
+    "Method": "GetAllDropdownData",
+    "RelativePath": "api/Airport/dropdown-data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -168,15 +208,71 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.AirportController",
+    "Method": "Filter",
+    "RelativePath": "api/Airport/filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "stateId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "countryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.AirportDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.BookingController",
-    "Method": "InsertBooking",
+    "Method": "GetAll",
+    "RelativePath": "api/Booking",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.BookingDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "Create",
     "RelativePath": "api/Booking",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Booking",
+        "Name": "booking",
         "Type": "Flight_Booking.Models.BookingDetail",
         "IsRequired": true
       }
@@ -185,7 +281,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.BookingController",
-    "Method": "GetBookingById",
+    "Method": "GetById",
     "RelativePath": "api/Booking/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -197,11 +293,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.BookingDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.BookingController",
-    "Method": "DeleteBookingById",
+    "Method": "Delete",
     "RelativePath": "api/Booking/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -217,7 +323,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.BookingController",
-    "Method": "UpdateBooking",
+    "Method": "Update",
     "RelativePath": "api/Booking/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -229,7 +335,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedBooking",
+        "Name": "booking",
         "Type": "Flight_Booking.Models.BookingDetail",
         "IsRequired": true
       }
@@ -237,9 +343,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
-    "Method": "GetBookingStatus",
-    "RelativePath": "api/BookingStatus",
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "GetBookingDropdownData",
+    "RelativePath": "api/Booking/dropdown-data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -247,15 +353,71 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.BookingController",
+    "Method": "Filter",
+    "RelativePath": "api/Booking/filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "passengerId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "statusId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.BookingDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
-    "Method": "InsertBookingStatus",
+    "Method": "GetAll",
+    "RelativePath": "api/BookingStatus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.BookingStatusDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
+    "Method": "Create",
     "RelativePath": "api/BookingStatus",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "BookingStatus",
+        "Name": "status",
         "Type": "Flight_Booking.Models.BookingStatusDetail",
         "IsRequired": true
       }
@@ -264,7 +426,7 @@
   },
   {
     "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
-    "Method": "GetBookingStatusById",
+    "Method": "GetById",
     "RelativePath": "api/BookingStatus/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -276,11 +438,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.BookingStatusDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
-    "Method": "DeleteBookingStatusById",
+    "Method": "Delete",
     "RelativePath": "api/BookingStatus/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -296,7 +468,7 @@
   },
   {
     "ContainingType": "Flight_BookingStatus.Controllers.BookingStatusController",
-    "Method": "UpdateBookingStatus",
+    "Method": "Update",
     "RelativePath": "api/BookingStatus/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -308,7 +480,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedBookingStatus",
+        "Name": "status",
         "Type": "Flight_Booking.Models.BookingStatusDetail",
         "IsRequired": true
       }
@@ -317,24 +489,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CityController",
-    "Method": "GetCity",
+    "Method": "GetAll",
     "RelativePath": "api/City",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.CityDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CityController",
-    "Method": "InsertCity",
+    "Method": "Create",
     "RelativePath": "api/City",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "City",
+        "Name": "city",
         "Type": "Flight_Booking.Models.CityDetail",
         "IsRequired": true
       }
@@ -343,7 +525,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CityController",
-    "Method": "GetCityById",
+    "Method": "GetById",
     "RelativePath": "api/City/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -355,11 +537,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.CityDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CityController",
-    "Method": "DeleteCityById",
+    "Method": "Delete",
     "RelativePath": "api/City/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -375,7 +567,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CityController",
-    "Method": "UpdateCity",
+    "Method": "Update",
     "RelativePath": "api/City/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -387,7 +579,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedCity",
+        "Name": "city",
         "Type": "Flight_Booking.Models.CityDetail",
         "IsRequired": true
       }
@@ -396,24 +588,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CountryController",
-    "Method": "GetCountry",
+    "Method": "GetAll",
     "RelativePath": "api/Country",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.CountryDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CountryController",
-    "Method": "InsertCountry",
+    "Method": "Create",
     "RelativePath": "api/Country",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Country",
+        "Name": "country",
         "Type": "Flight_Booking.Models.CountryDetail",
         "IsRequired": true
       }
@@ -422,7 +624,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CountryController",
-    "Method": "GetCountryById",
+    "Method": "GetById",
     "RelativePath": "api/Country/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -434,11 +636,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.CountryDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CountryController",
-    "Method": "DeleteCountryById",
+    "Method": "Delete",
     "RelativePath": "api/Country/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -454,7 +666,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.CountryController",
-    "Method": "UpdateCountry",
+    "Method": "Update",
     "RelativePath": "api/Country/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -466,7 +678,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedCountry",
+        "Name": "country",
         "Type": "Flight_Booking.Models.CountryDetail",
         "IsRequired": true
       }
@@ -475,24 +687,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.FlightController",
-    "Method": "GetFlight",
+    "Method": "GetAll",
     "RelativePath": "api/Flight",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.FlightDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.FlightController",
-    "Method": "InsertFlight",
+    "Method": "Create",
     "RelativePath": "api/Flight",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Flight",
+        "Name": "flight",
         "Type": "Flight_Booking.Models.FlightDetail",
         "IsRequired": true
       }
@@ -501,7 +723,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.FlightController",
-    "Method": "GetFlightById",
+    "Method": "GetById",
     "RelativePath": "api/Flight/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -513,11 +735,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.FlightDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.FlightController",
-    "Method": "DeleteFlightById",
+    "Method": "Delete",
     "RelativePath": "api/Flight/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -533,7 +765,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.FlightController",
-    "Method": "UpdateFlight",
+    "Method": "Update",
     "RelativePath": "api/Flight/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -545,7 +777,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedFlight",
+        "Name": "flight",
         "Type": "Flight_Booking.Models.FlightDetail",
         "IsRequired": true
       }
@@ -553,9 +785,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Flight_Booking.Controllers.IataController",
-    "Method": "GetIata",
-    "RelativePath": "api/Iata",
+    "ContainingType": "Flight_Booking.Controllers.FlightController",
+    "Method": "GetFlightDropdownData",
+    "RelativePath": "api/Flight/dropdown-data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -563,15 +795,71 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.FlightController",
+    "Method": "Filter",
+    "RelativePath": "api/Flight/filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "airlineId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "departureCityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "arrivalCityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.FlightDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.IataController",
-    "Method": "InsertIata",
+    "Method": "GetAll",
+    "RelativePath": "api/Iata",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.IataDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.IataController",
+    "Method": "Create",
     "RelativePath": "api/Iata",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Iata",
+        "Name": "iata",
         "Type": "Flight_Booking.Models.IataDetail",
         "IsRequired": true
       }
@@ -580,7 +868,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.IataController",
-    "Method": "GetIataById",
+    "Method": "GetById",
     "RelativePath": "api/Iata/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -592,11 +880,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.IataDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.IataController",
-    "Method": "DeleteIataById",
+    "Method": "Delete",
     "RelativePath": "api/Iata/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -612,7 +910,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.IataController",
-    "Method": "UpdateIata",
+    "Method": "Update",
     "RelativePath": "api/Iata/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -624,26 +922,62 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedIata",
+        "Name": "iata",
         "Type": "Flight_Booking.Models.IataDetail",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.IataController",
+    "Method": "GetByCode",
+    "RelativePath": "api/Iata/code/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.IataDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PassengerController",
-    "Method": "GetPassenger",
+    "Method": "GetAll",
     "RelativePath": "api/Passenger",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.PassengerDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PassengerController",
-    "Method": "InsertHospital",
+    "Method": "Create",
     "RelativePath": "api/Passenger",
     "HttpMethod": "POST",
     "IsController": true,
@@ -659,7 +993,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PassengerController",
-    "Method": "GetpassengerById",
+    "Method": "GetById",
     "RelativePath": "api/Passenger/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -671,11 +1005,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.PassengerDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PassengerController",
-    "Method": "DeletepassengerById",
+    "Method": "Delete",
     "RelativePath": "api/Passenger/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -691,7 +1035,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PassengerController",
-    "Method": "UpdateHospital",
+    "Method": "Update",
     "RelativePath": "api/Passenger/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -703,7 +1047,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedpassenger",
+        "Name": "updatedPassenger",
         "Type": "Flight_Booking.Models.PassengerDetail",
         "IsRequired": true
       }
@@ -712,24 +1056,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentController",
-    "Method": "GetPayment",
+    "Method": "GetAll",
     "RelativePath": "api/Payment",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.PaymentDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentController",
-    "Method": "InsertPayment",
+    "Method": "Create",
     "RelativePath": "api/Payment",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Payment",
+        "Name": "payment",
         "Type": "Flight_Booking.Models.PaymentDetail",
         "IsRequired": true
       }
@@ -738,7 +1092,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentController",
-    "Method": "GetPaymentById",
+    "Method": "GetById",
     "RelativePath": "api/Payment/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -750,11 +1104,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.PaymentDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentController",
-    "Method": "DeletePaymentById",
+    "Method": "Delete",
     "RelativePath": "api/Payment/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -770,7 +1134,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentController",
-    "Method": "UpdatePayment",
+    "Method": "Update",
     "RelativePath": "api/Payment/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -782,7 +1146,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedPayment",
+        "Name": "payment",
         "Type": "Flight_Booking.Models.PaymentDetail",
         "IsRequired": true
       }
@@ -790,9 +1154,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
-    "Method": "GetPaymentMethod",
-    "RelativePath": "api/PaymentMethod",
+    "ContainingType": "Flight_Booking.Controllers.PaymentController",
+    "Method": "GetPaymentDropdownData",
+    "RelativePath": "api/Payment/dropdown-data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -801,14 +1165,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
-    "Method": "InsertPaymentMethod",
+    "Method": "GetAll",
+    "RelativePath": "api/PaymentMethod",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.PaymentMethodDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
+    "Method": "Create",
     "RelativePath": "api/PaymentMethod",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "PaymentMethod",
+        "Name": "method",
         "Type": "Flight_Booking.Models.PaymentMethodDetail",
         "IsRequired": true
       }
@@ -817,7 +1201,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
-    "Method": "GetPaymentMethodById",
+    "Method": "GetById",
     "RelativePath": "api/PaymentMethod/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -829,11 +1213,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.PaymentMethodDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
-    "Method": "DeletePaymentMethodById",
+    "Method": "Delete",
     "RelativePath": "api/PaymentMethod/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -849,7 +1243,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentMethodController",
-    "Method": "UpdatePaymentMethod",
+    "Method": "Update",
     "RelativePath": "api/PaymentMethod/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -861,7 +1255,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedPaymentMethod",
+        "Name": "method",
         "Type": "Flight_Booking.Models.PaymentMethodDetail",
         "IsRequired": true
       }
@@ -870,24 +1264,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
-    "Method": "GetPaymentStatus",
+    "Method": "GetAll",
     "RelativePath": "api/PaymentStatus",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.PaymentStatusDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
-    "Method": "InsertPaymentStatus",
+    "Method": "Create",
     "RelativePath": "api/PaymentStatus",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "PaymentStatus",
+        "Name": "status",
         "Type": "Flight_Booking.Models.PaymentStatusDetail",
         "IsRequired": true
       }
@@ -896,7 +1300,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
-    "Method": "GetPaymentStatusById",
+    "Method": "GetById",
     "RelativePath": "api/PaymentStatus/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -908,11 +1312,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.PaymentStatusDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
-    "Method": "DeletePaymentStatusById",
+    "Method": "Delete",
     "RelativePath": "api/PaymentStatus/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -928,7 +1342,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.PaymentStatusController",
-    "Method": "UpdatePaymentStatus",
+    "Method": "Update",
     "RelativePath": "api/PaymentStatus/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -940,7 +1354,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatedPaymentStatus",
+        "Name": "updated",
         "Type": "Flight_Booking.Models.PaymentStatusDetail",
         "IsRequired": true
       }
@@ -949,24 +1363,34 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
-    "Method": "GetSeat",
+    "Method": "GetAll",
     "RelativePath": "api/Seat",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.SeatDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
-    "Method": "InsertSeat",
+    "Method": "Create",
     "RelativePath": "api/Seat",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Seat",
+        "Name": "seat",
         "Type": "Flight_Booking.Models.SeatDetail",
         "IsRequired": true
       }
@@ -975,7 +1399,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
-    "Method": "GetSeatById",
+    "Method": "GetById",
     "RelativePath": "api/Seat/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -987,11 +1411,21 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.SeatDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
-    "Method": "DeleteSeatById",
+    "Method": "Delete",
     "RelativePath": "api/Seat/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -1007,7 +1441,7 @@
   },
   {
     "ContainingType": "Flight_Booking.Controllers.SeatController",
-    "Method": "UpdateSeat",
+    "Method": "Update",
     "RelativePath": "api/Seat/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -1027,6 +1461,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.SeatController",
+    "Method": "GetFlightsForDropdown",
+    "RelativePath": "api/Seat/dropdown/flights",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.StateController",
     "Method": "GetState",
     "RelativePath": "api/State",
@@ -1034,7 +1478,17 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.StateDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.StateController",
@@ -1045,12 +1499,22 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "State",
+        "Name": "state",
         "Type": "Flight_Booking.Models.StateDetail",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.StateDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.StateController",
@@ -1066,7 +1530,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.StateDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.StateController",
@@ -1106,6 +1580,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Flight_Booking.Controllers.StateController",
+    "Method": "GetCountryDropdown",
+    "RelativePath": "api/State/dropdown-country",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Flight_Booking.Controllers.TravelClassController",
     "Method": "GetTravelClass",
     "RelativePath": "api/TravelClass",
@@ -1113,7 +1597,17 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Flight_Booking.Models.TravelClassDetail, Flight_Booking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.TravelClassController",
@@ -1124,12 +1618,22 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "TravelClass",
+        "Name": "travelClass",
         "Type": "Flight_Booking.Models.TravelClassDetail",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.TravelClassDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.TravelClassController",
@@ -1145,7 +1649,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Flight_Booking.Models.TravelClassDetail",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Flight_Booking.Controllers.TravelClassController",

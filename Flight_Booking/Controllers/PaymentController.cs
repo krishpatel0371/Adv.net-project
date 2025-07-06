@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,79 +20,109 @@ namespace Flight_Booking.Controllers
 
         #region GetPayment GET: api/Payment
         [HttpGet]
-        public IActionResult GetPayment()
+        public async Task<ActionResult<IEnumerable<PaymentDetail>>> GetAll()
         {
-            var Payment = _context.PaymentDetails.ToList();
-            return Ok(Payment);
+            return await _context.PaymentDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetPaymentById GET: api/Payment/5
         [HttpGet("{id}")]
-        public IActionResult GetPaymentById(int id)
+        public async Task<ActionResult<PaymentDetail>> GetById(int id)
         {
-            var Payment = _context.PaymentDetails.Find(id);
-            if (Payment == null)
-            {
-                return NotFound();
-            }
-            return Ok(Payment);
+            var payment = await _context.PaymentDetails.FindAsync(id);
+            return payment == null ? NotFound() : Ok(payment);
         }
+
         #endregion
 
         #region DeletePaymentById DELETE: api/Payment/5
         [HttpDelete("{id}")]
-        public IActionResult DeletePaymentById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Payment = _context.PaymentDetails.Find(id);
-            if (Payment == null)
-            {
+            var payment = await _context.PaymentDetails.FindAsync(id);
+            if (payment == null)
                 return NotFound();
-            }
 
-            _context.PaymentDetails.Remove(Payment);
-            _context.SaveChanges();
+            _context.PaymentDetails.Remove(payment);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertPayment POST: api/Payment
         [HttpPost]
-        public IActionResult InsertPayment(PaymentDetail Payment)
+        public async Task<IActionResult> Create(PaymentDetail payment)
         {
-            _context.PaymentDetails.Add(Payment);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetPaymentById), new { id = Payment.PaymentId }, Payment);
+            _context.PaymentDetails.Add(payment);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = payment.PaymentId }, payment);
         }
         #endregion
 
         #region UpdatePayment PUT: api/Payment/5
         [HttpPut("{id}")]
-        public IActionResult UpdatePayment(int id, PaymentDetail updatedPayment)
+        public async Task<IActionResult> Update(int id, PaymentDetail payment)
         {
-            if (id != updatedPayment.PaymentId)
-            {
+            if (id != payment.PaymentId)
                 return BadRequest();
-            }
 
-            var Payment = _context.PaymentDetails.Find(id);
-            if (Payment == null)
-            {
+            var existing = await _context.PaymentDetails.FindAsync(id);
+            if (existing == null)
                 return NotFound();
-            }
 
-            Payment.BookingId = updatedPayment.BookingId;
-            Payment.PaymentDate = updatedPayment.PaymentDate;
-            Payment.Amount = updatedPayment.Amount;
-            Payment.PaymentMethodId = updatedPayment.PaymentMethodId;
-            Payment.PaymentStatusId = updatedPayment.PaymentStatusId;
+            existing.BookingId = payment.BookingId;
+            existing.PaymentDate = payment.PaymentDate;
+            existing.Amount = payment.Amount;
+            existing.PaymentMethodId = payment.PaymentMethodId;
+            existing.PaymentStatusId = payment.PaymentStatusId;
 
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.PaymentDetails.Update(Payment);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion
+
+        #region Get Dropdown Data for Payment
+
+        [HttpGet("dropdown-data")]
+        public async Task<IActionResult> GetPaymentDropdownData()
+        {
+            var bookings = await _context.BookingDetails
+                .Select(b => new
+                {
+                    b.BookingId,
+                    Display = "Booking #" + b.BookingId
+                })
+                .ToListAsync();
+
+            var paymentMethods = await _context.PaymentMethodDetails
+                .Select(pm => new
+                {
+                    pm.PaymentMethodId,
+                    pm.PaymentMethod
+                })
+                .ToListAsync();
+
+            var paymentStatuses = await _context.PaymentStatusDetails
+                .Select(ps => new
+                {
+                    ps.PaymentStatusId,
+                    ps.StatusName
+                })
+                .ToListAsync();
+
+            return Ok(new
+            {
+                Bookings = bookings,
+                PaymentMethods = paymentMethods,
+                PaymentStatuses = paymentStatuses
+            });
+        }
+
+        #endregion
+
     }
 }

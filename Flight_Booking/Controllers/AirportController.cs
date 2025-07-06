@@ -1,6 +1,7 @@
 ﻿using Flight_Booking.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flight_Booking.Controllers
 {
@@ -19,79 +20,116 @@ namespace Flight_Booking.Controllers
 
         #region GetAirport GET: api/Airport
         [HttpGet]
-        public IActionResult GetAirport()
+        public async Task<ActionResult<IEnumerable<AirportDetail>>> GetAll()
         {
-            var Airport = _context.AirportDetails.ToList();
-            return Ok(Airport);
+            return await _context.AirportDetails.ToListAsync();
         }
 
         #endregion
 
         #region GetAirportById GET: api/Airport/5
         [HttpGet("{id}")]
-        public IActionResult GetAirportById(int id)
+        public async Task<ActionResult<AirportDetail>> GetById(int id)
         {
-            var Airport = _context.AirportDetails.Find(id);
-            if (Airport == null)
-            {
-                return NotFound();
-            }
-            return Ok(Airport);
+            var airport = await _context.AirportDetails.FindAsync(id);
+            return airport == null ? NotFound() : Ok(airport);
         }
         #endregion
 
         #region DeleteAirportById DELETE: api/Airport/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteAirportById(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var Airport = _context.AirportDetails.Find(id);
-            if (Airport == null)
-            {
-                return NotFound();
-            }
+            var airport = await _context.AirportDetails.FindAsync(id);
+            if (airport == null) return NotFound();
 
-            _context.AirportDetails.Remove(Airport);
-            _context.SaveChanges();
+            _context.AirportDetails.Remove(airport);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
         #endregion
 
         #region InsertAirport POST: api/Airport
         [HttpPost]
-        public IActionResult InsertAirport(AirportDetail Airport)
+        public async Task<IActionResult> Create(AirportDetail airport)
         {
-            _context.AirportDetails.Add(Airport);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetAirportById), new { id = Airport.AirportId }, Airport);
+            _context.AirportDetails.Add(airport);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetById), new { id = airport.AirportId }, airport);
         }
         #endregion
 
         #region UpdateAirport PUT: api/Airport/5
         [HttpPut("{id}")]
-        public IActionResult UpdateAirport(int id, AirportDetail updatedAirport)
+        public async Task<IActionResult> Update(int id, AirportDetail airport)
         {
-            if (id != updatedAirport.AirportId)
-            {
-                return BadRequest();
-            }
+            if (id != airport.AirportId) return BadRequest();
 
-            var Airport = _context.AirportDetails.Find(id);
-            if (Airport == null)
-            {
-                return NotFound();
-            }
+            var existing = await _context.AirportDetails.FindAsync(id);
+            if (existing == null) return NotFound();
 
-            Airport.AirportName = updatedAirport.AirportName;
-            Airport.CityId = updatedAirport.CityId;
-            Airport.StateId = updatedAirport.StateId;
-            Airport.CountryId = updatedAirport.CountryId;
-            Airport.Iataid = updatedAirport.Iataid;
+            existing.AirportName = airport.AirportName;
+            existing.CityId = airport.CityId;
+            existing.StateId = airport.StateId;
+            existing.CountryId = airport.CountryId;
+            existing.Iataid = airport.Iataid;
 
+            _context.Entry(existing).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            _context.AirportDetails.Update(Airport);
-            _context.SaveChanges();
             return NoContent();
         }
         #endregion
+
+        #region Get airports by city, state, country
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<AirportDetail>>> Filter([FromQuery] int? cityId, [FromQuery] int? stateId, [FromQuery] int? countryId)
+        {
+            var query = _context.AirportDetails.AsQueryable();
+
+            if (cityId.HasValue)
+                query = query.Where(a => a.CityId == cityId);
+
+            if (stateId.HasValue)
+                query = query.Where(a => a.StateId == stateId);
+
+            if (countryId.HasValue)
+                query = query.Where(a => a.CountryId == countryId);
+
+            return await query.ToListAsync();
+        }
+        #endregion
+
+        [HttpGet("dropdown-data")]
+        public async Task<IActionResult> GetAllDropdownData()
+        {
+            var countries = await _context.CountryDetails
+                .Select(c => new { c.CountryId, c.CountryName })
+                .ToListAsync();
+
+            //var states = await _context.StateDetails
+            //    .Select(s => new { s.StateId, s.StateName, s.CountryId }) // include CountryId for filtering
+            //    .ToListAsync();
+
+            //var cities = await _context.CityDetails
+            //    .Select(c => new { c.CityID, c.CityNameFull, c.StateId }) // include StateId for filtering
+            //    .ToListAsync();
+
+            var iataCodes = await _context.IataDetails
+                .Select(i => new { i.IataId, i.Iatacode })
+                .ToListAsync();
+
+            return Ok(new
+            {
+                Countries = countries,
+                //States = states,
+                //Cities = cities,
+                IataCodes = iataCodes
+            });
+        }
+
+
+
     }
 }
